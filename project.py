@@ -66,7 +66,7 @@ def getEducation(text):
         return 'PhD'
     elif 'master' in text or 'm.s.' in text or 'm.a.' in text:
         return 'Master'
-    elif 'bachelor' in text or 'b.s.' in text or 'b.a.' in text or 'bs' in text:
+    elif 'bachelor' in text or 'b.s.' in text or 'b.a.' in text or re.search(r'\bbs\b', text):
         return 'Bachelor'
     elif 'associate' in text:
         return 'Associate'
@@ -959,11 +959,6 @@ if len(filteredDf) > 10 and 'skills_found' in filteredDf.columns:
 - Darker colors mean more jobs requiring that skill in that state.
 - You can spot regional skill preferences, e.g. California may favor "React" while Texas prefers "Java".
 - Job seekers can pick a state and see which skills are most valued there.
-
-**图表含义：**
-- 颜色越深表示该州对该技能的需求越大。
-- 可以发现不同州的技能偏好差异。
-- 求职者可以选择目标州，查看当地最看重的技能。
 """)
     except:
         st.info("Not enough data to display the heatmap. Try adjusting your filters.")
