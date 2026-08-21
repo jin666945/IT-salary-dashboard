@@ -891,11 +891,11 @@ else:
             if len(vals_a) > 1 and len(vals_b) > 1:
                 t_stat, p_val = stats.ttest_ind(vals_a, vals_b)
                 if p_val < 0.05:
-                    st.success(f"📊 统计结论：二者薪资差异显著（p = {p_val:.4f} < 0.05），差异可信。")
+                    st.success(f"📊 Statistical Conclusion: The salary difference is significant (p = {p_val:.4f} < 0.05), indicating a reliable difference.")
                 else:
-                    st.warning(f"📊 统计结论：二者薪资差异不显著（p = {p_val:.4f} > 0.05），可能是抽样误差。")
+                    st.warning(f"📊 Statistical Conclusion: The salary difference is NOT significant (p = {p_val:.4f} > 0.05), possibly due to sampling error.")
             else:
-                st.info("当前选组的样本数据太少（少于2个），无法进行T检验。")
+                st.info("Insufficient sample data (less than 2 observations) for T-test.")
         else:
             st.info("Not enough data for selected education levels")
     else:
