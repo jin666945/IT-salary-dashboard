@@ -1,0 +1,21 @@
+name: Keep app awake
+
+on:
+  schedule:
+    - cron: '0 */8 * * *'
+
+jobs:
+  empty-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Create empty commit
+        run: |
+          git config --local user.email "keepalive@github.com"
+          git config --local user.name "Keep Alive Bot"
+          git commit --allow-empty -m "Keep alive"
+          git push
