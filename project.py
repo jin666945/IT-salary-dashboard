@@ -565,6 +565,8 @@ if st.session_state.get('showAbout', False):
 # ============================================================
 # KPI cards
 # ============================================================
+st.caption("All salaries shown below are in **USD per year**.")
+
 col1, col2, col3, col4, col5 = st.columns(5)
 col1.metric("Total Jobs", len(filteredDf))
 col2.metric("Average Salary", f"${filteredDf[st.session_state.salCol].mean():,.0f}")
@@ -649,7 +651,7 @@ figState = px.bar(
     y='avg_salary',
     text='avg_salary',
     title='Average IT Salary by State (Top 10)',
-    labels={'state': 'State', 'avg_salary': 'Average Salary (USD)'},
+    labels={'state': 'State', 'avg_salary': 'Average Salary (Annual,USD)'},
     color='avg_salary',
     color_continuous_scale='Blues',
     hover_data={'job_count': True}
@@ -661,7 +663,7 @@ figState.update_traces(
 )
 figState.update_layout(
     xaxis_title='State',
-    yaxis_title='Average Salary (USD)',
+    yaxis_title='Average Salary (Annual,USD)',
     uniformtext_minsize=8,
     uniformtext_mode='hide'
 )
@@ -725,7 +727,7 @@ if compType == "States":
             ))
             figCmp.update_layout(
                 title=f"{stateA} vs {stateB} — Avg Salary",
-                yaxis_title="Avg Salary (USD)",
+                yaxis_title="Avg Salary (Annual,USD)",
                 height=400
             )
             st.plotly_chart(figCmp, use_container_width=True)
@@ -982,7 +984,7 @@ if len(expData) > 5:
         y=st.session_state.salCol,
         markers=True,
         title='Relationship Between Years of Experience and Average Salary',
-        labels={'experience_years': 'Years of Experience', st.session_state.salCol: 'Average Salary (USD)'}
+        labels={'experience_years': 'Years of Experience', st.session_state.salCol: 'Average Salary (Annual,USD)'}
     )
     figExp.update_traces(
         line=dict(color='green', width=3),
@@ -991,7 +993,7 @@ if len(expData) > 5:
     )
     figExp.update_layout(
         xaxis_title='Years of Experience Required',
-        yaxis_title='Average Salary (USD)',
+        yaxis_title='Average Salary (Annual,USD)',
         hovermode='x'
     )
     st.plotly_chart(figExp, use_container_width=True)
@@ -1044,7 +1046,7 @@ if 'skills_found' in filteredDf.columns and len(filteredDf) > 5:
             x='Skill',
             y='Avg Salary',
             title='Average Salary for Jobs Requiring Specific Skills (Top 12)',
-            labels={'Skill': 'Skill', 'Avg Salary': 'Average Salary (USD)'},
+            labels={'Skill': 'Skill', 'Avg Salary': 'Average Salary (Annual,USD)'},
             color='Avg Salary',
             color_continuous_scale='BuGn',
             text='Avg Salary'
@@ -1057,7 +1059,7 @@ if 'skills_found' in filteredDf.columns and len(filteredDf) > 5:
         )
         figSkillSal.update_layout(
             xaxis_title='Skill',
-            yaxis_title='Average Salary (USD)',
+            yaxis_title='Average Salary (Annual,USD)',
             xaxis_tickangle=-30
         )
         st.plotly_chart(figSkillSal, use_container_width=True)
@@ -1089,7 +1091,7 @@ figEdu = px.bar(
     y=st.session_state.salCol,
     text=st.session_state.salCol,
     title='Average IT Salary by Minimum Education Requirement',
-    labels={'education': 'Education Level', st.session_state.salCol: 'Average Salary (USD)'},
+    labels={'education': 'Education Level', st.session_state.salCol: 'Average Salary (Annual,USD)'},
     color=st.session_state.salCol,
     color_continuous_scale='Purples'
 )
@@ -1179,7 +1181,7 @@ figHighPay = px.bar(
     y='Skill',
     orientation='h',
     title='Top 15 IT Skills with the Highest Average Salary',
-    labels={'Avg_Salary': 'Average Salary (USD)', 'Skill': ''},
+    labels={'Avg_Salary': 'Average Salary (Annual,USD)', 'Skill': ''},
     text='Avg_Salary',
     color='Avg_Salary',
     color_continuous_scale='Reds'
