@@ -604,6 +604,7 @@ figHist = px.histogram(
     color_discrete_sequence=['steelblue'],
     opacity=0.8
 )
+
 figHist.update_layout(
     xaxis_title='Annual Salary (USD)',
     yaxis_title='Number of Jobs',
@@ -1021,7 +1022,7 @@ else:
 # ============================================================
 st.subheader("Salary Impact of Key Skills")
 
-if 'skills_found' in filteredDf.columns and len(filteredDf) > 5:
+if 'skills_found' in filteredDf.columns:
     skillSalDf = pd.DataFrame()
     for skill in topSkills:
         skill_name = skill[0]
@@ -1075,6 +1076,10 @@ What this chart tells you:
 
         with st.expander("View skill salary data"):
             st.dataframe(skillSalDf, use_container_width=True)
+    else:
+        st.info("Not enough data to calculate salary impact for skills. Try adjusting your filters to include more job postings.")
+else:
+    st.info("kills data not available. Try uploading a dataset with skill information.")
 
 # ============================================================
 # Chart 5: Education vs salary
