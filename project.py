@@ -515,7 +515,9 @@ st.sidebar.download_button(
 )
 
 # ---- Export as CSV ----
-csv_data = filteredDf.to_csv(index=False).encode('utf-8')
+filteredDf_for_csv = filteredDf.copy()
+filteredDf_for_csv['description'] = filteredDf_for_csv['description'].str.replace('\n', ' ', regex=False)
+csv_data = filteredDf_for_csv.to_csv(index=False).encode('utf-8')
 st.sidebar.download_button(
     label="Download Filtered Data (CSV)",
     data=csv_data,
