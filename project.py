@@ -1150,6 +1150,39 @@ try:
         )
         figCorr.update_layout(height=500)
         st.plotly_chart(figCorr, use_container_width=True)
+
+        corr_exp = corrMatrix.loc['salary_avg', 'experience_years']
+        corr_edu = corrMatrix.loc['salary_avg', 'education_level']
+
+        if corr_exp > 0.3:
+            exp_desc = "moderate positive"
+        elif corr_exp > 0.1:
+            exp_desc = "weak positive"
+        elif corr_exp > -0.1:
+            exp_desc = "almost no"
+        elif corr_exp > -0.3:
+            exp_desc = "weak negative"
+        else:
+            exp_desc = "moderate negative"
+
+        if corr_edu > 0.3:
+            edu_desc = "moderate positive"
+        elif corr_edu > 0.1:
+            edu_desc = "weak positive"
+        elif corr_edu > -0.1:
+            edu_desc = "almost no"
+        elif corr_edu > -0.3:
+            edu_desc = "weak negative"
+        else:
+            edu_desc = "moderate negative"
+
+        st.info(f"""
+        **How to read this chart:**
+        - Values close to **1** mean a strong positive relationship.
+        - Values close to **-1** mean a strong negative relationship.
+        - Values close to **0** mean almost no relationship.
+        - In this dataset, salary has a {exp_desc} correlation with experience ({corr_exp:.2f}) and a {edu_desc} correlation with education ({corr_edu:.2f}).
+        """)
     else:
         st.info("Not enough data to generate the correlation heatmap. Try uploading more data.")
 except:
